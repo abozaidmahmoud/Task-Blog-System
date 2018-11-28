@@ -1,6 +1,6 @@
 Task ( Blog System)
 
-1- Create new laravel project.
+1- Create new laravel project.<br>
 2- Initialize new git repository and push code to github.
 3- Create new git branch and name it (mu-edu-task) to start in
 task.
