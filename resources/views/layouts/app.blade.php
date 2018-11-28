@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Blog System</title>
 
     <!-- Scripts -->
     <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
@@ -16,10 +16,13 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{asset('fontawesome-free-5.5.0-web/css/all.css')}}">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    @section('css')
+   @show
 </head>
 <body>
     <div id="app">
@@ -41,7 +44,7 @@
                         </li>
 
                         <li class="nav-item list_item">
-                                <a class="nav-link" href="{{ url('Blog/profile') }}">Profile</a>
+                                <a class="nav-link" href="{{ url('Blog/user/'.Auth()->user()->id.'/profile') }}">Profile</a>
                         </li>
                     </ul>
                     @endif

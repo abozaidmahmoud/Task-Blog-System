@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 class LoginController extends Controller
 {
     /*
@@ -52,7 +54,8 @@ public function login(Request $req){
         return redirect('Blog/home');
 
     }else{
-        return 'error in pass';
+        Session::flash('login_error','Invalid national_id or password');
+        return back();
     }
     }
 

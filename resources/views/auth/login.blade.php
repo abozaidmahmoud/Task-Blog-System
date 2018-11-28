@@ -6,7 +6,9 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
-
+                @if(Session()->has('login_error'))
+                    <p class="alert alert-danger text-center">{{Session('login_error')}}</p>
+                @endif
                 <div class="card-body">
                     <form method="POST" action="{{ url('Blog/login') }}">
                         @csrf
@@ -16,7 +18,6 @@
 
                             <div class="col-md-6">
                                 <input id="national_id" type="text" class="form-control{{ $errors->has('national_id') ? ' is-invalid' : '' }}" name="national_id" value="{{ old('national_id') }}" required autofocus>
-
                                 @if ($errors->has('national_id'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('national_id') }}</strong>

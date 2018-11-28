@@ -22,7 +22,19 @@ Auth::routes();
 
         Route::post('user/register','UserController@store');
 
+        Route::get('post/filter','PostController@filter');
+        Route::get('post/{id}/show_post','PostController@show_post');
+
+        Route::get('post/{gender}','PostController@filter');
        Route::resource('post','PostController');
+       Route::post('post/{id}/edit','PostController@edit');
+       Route::post('post/{id}/update','PostController@update');
+       Route::get('post/{id}/delete','PostController@destroy');
+
+
+       Route::get('user/{id}/profile','UserController@profile');
+       Route::get('user/{id}/update','UserController@update');
+       Route::get('post/{id}/add_comment','PostController@add_comment');
 
 
     });

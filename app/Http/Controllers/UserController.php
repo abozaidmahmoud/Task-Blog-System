@@ -26,4 +26,29 @@ class UserController extends Controller
         return redirect(url('Blog/home'));
 
     }
+
+    public function profile($id){
+        $user=User::find($id);
+        $posts=$user->posts;
+        return view('profile',compact('user','posts'));
+    }
+
+    public function update(Request $req,$id){
+        $this->validate($req,[
+            'name'=>'required|string|min:3|max:50',
+            'email'=>'required|email',
+            'national_id'=>'required|numeric',
+        ]);
+
+        $user=User::find($id);
+        $user->name=$req->name;
+        $user->email=$req->email;
+        if(!empty($req->password)){
+            $user->password=bcrypt($req->password);
+        }
+        $user->national_id=$req->national_id;
+        $user->gender=$req->gender;
+        $user->save();
+        return Response()->json(['user'=>$user]);
+    }
 }

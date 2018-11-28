@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Models\post;
+use App\Models\comment;
 
 class PostController extends Controller
 {
@@ -14,6 +16,14 @@ class PostController extends Controller
         return view('home',compact('posts'));
     }
 
+    public function filter(Request $req){
+        if($req->type){
+            $posts=post::join('users','posts.user_id','users.id')->where('users.gender',$req->type)->get();
+            return view('home',compact('posts'));
+
+        }
+    }
+
     public function create()
     {
         //
@@ -22,7 +32,7 @@ class PostController extends Controller
 
     public function store(Request $req)
     {
-        $this->validate($req,[
+       $this->validate($req,[
             'title'=>'required',
             'body'=>'required',
         ]);
@@ -43,37 +53,47 @@ class PostController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+
+    public function edit(post $post)
     {
-        //
+        return Response()->json(['post'=>$post]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    public function show_post($id){
+        $post=post::find($id);
+        return view('edit_post',compact('post'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    public function update(Request $req , $id)
+    {
+        $this->validate($req,[
+            'title'=>'required',
+            'body'=>'required',
+        ]);
+        $post=Post::find($id);
+        $post->title=strip_tags(request('title'));
+        $post->body=strip_tags(request('body'));
+        $post->save();
+        return Response()->json(['post'=>$post,'back'=>back()]);
+
+    }
+
     public function destroy($id)
     {
-        //
+        Post::find($id)->delete();
+        return Response()->json(['id'=>$id]);
     }
+
+
+    public function add_comment(Request $req,$id){
+        $comment=new comment();
+        $comment->post_id=$id;
+        $comment->user_id=Auth()->user()->id;
+        $comment->comment=$req->comment;
+        $comment->save();
+        return Response()->json(['comment'=>$comment]);
+
+    }
+
 }
