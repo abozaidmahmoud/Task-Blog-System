@@ -78,7 +78,7 @@
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                    register
-                                </button> or  have an account  
+                                </button> or  have an account
                                 <a  href="{{ url('Blog/login') }}">
                                     login
                                 </a>
