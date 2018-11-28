@@ -9,12 +9,13 @@ use phpDocumentor\Reflection\DocBlock\Tags\Reference\Url;
 class UserController extends Controller
 {
 
+    //add new user
     public function store(Request $req){
        $this->validate($req,[
           'name'=>'required|string|min:3|max:50',
           'email'=>'required|email|unique:users',
            'password'=>'required|confirmed|min:6',
-           'national_id'=>'required|numeric|unique:users',
+           'national_id'=>'required|numeric|unique:users|max:14|min:14',
        ]);
 
        $user=new User();
@@ -27,12 +28,14 @@ class UserController extends Controller
 
     }
 
+    //show profile of user
     public function profile($id){
         $user=User::find($id);
         $posts=$user->posts;
         return view('profile',compact('user','posts'));
     }
 
+  //update user
     public function update(Request $req,$id){
         $this->validate($req,[
             'name'=>'required|string|min:3|max:50',

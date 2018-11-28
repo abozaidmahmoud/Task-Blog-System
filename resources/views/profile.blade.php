@@ -27,19 +27,19 @@
                                 <label class="label">useername</label>
                                 <div class="form-group">
                                     <input type="hidden" id="user_id" value="{{request('id')}}">
-                                    <input type="text" name="name" value="{{$user->name}}" class="form-control border-input"  placeholder="username" >
+                                    <input type="text" required name="name" value="{{$user->name}}" class="form-control border-input"  placeholder="username" >
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="label">email</label>
-                                    <input type="email" name="email" value="{{$user->email}}" class="form-control border-input" placeholder="email" >
+                                    <input type="email" required name="email" value="{{$user->email}}" class="form-control border-input" placeholder="email" >
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="label">password</label>
-                                    <input type="text" name="password" class="form-control border-input" placeholder="password">
+                                    <input type="text" required name="password" class="form-control border-input" placeholder="password">
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="label">national_id</label>
-                                    <input type="text" name="national_id" value="{{$user->national_id}}" class="form-control border-input" placeholder="national_id" >
+                                    <input type="text" required name="national_id" value="{{$user->national_id}}" class="form-control border-input" placeholder="national_id" >
                                 </div>
                             </div>
                             <div class="col-md-6 col-md-offset-4">
@@ -77,15 +77,11 @@
         <br> <br> <br> <br> <br> <br>
 
 
-
-
-
-
     @if(!isset($posts))
             <h2 class="alert alert-dark">There is no posts to Show</h2>
         @else
             @foreach($posts as $post)
-                <div data-id="{{$post->id}}" class="post_body">
+                <div data-id="{{$post->id}}" class="post_body postelement{{$post->id}}">
                     <span class="icon_post" onclick="show_post_option()"><i class="fa fa-cog fa-lg"></i></span>
                     <div class="post_option">
                         <a onclick="edit_post({{$post->id}})"  style="display: block;cursor: pointer"><i class="fa fa-edit"></i> edit</a>

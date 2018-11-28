@@ -116,11 +116,10 @@ function delete_post($id) {
         url:url,
         dataType:'json',
         success:function(data){
-           $('.post_body').attr('post-id',data.id).hide();
+           $('.postelement'+$id).attr('post-id',data.id).hide();
 
         } ,
         error:function(error){
-            alert('error');
         }
 
     });
@@ -128,6 +127,7 @@ function delete_post($id) {
 
 }
 
+//update user profile
 function update_profile() {
     var data=$('#form_profile').serialize();
     var id=$('#user_id').val();
@@ -153,6 +153,7 @@ function update_profile() {
 
 }
 
+//add comment to post
 function add_comment($id) {
     var url='http://localhost:8000/Blog/post/'+$id+'/add_comment';
    var comment_id='#comment'+$id;
@@ -171,31 +172,21 @@ function add_comment($id) {
         }
 
     });
-
-
 }
 
+//search for posts use post title
+function search() {
+    $('#form_search').submit();
+
+}
 
 function show_post_option() {
     $('.post_option').fadeToggle();
 }
 
+//filter posts according to user gender
  function filter($gender) {
-
     $('#form_filter').submit();
 
-     // var url='http://localhost:8000/Blog/post/'+$gender;
-     // $.ajax({
-     //     type:'get',
-     //     url:url,
-     //     dataType:'json',
-     //     success:function(data){
-     //     },
-     //
-     //
-     //     error:function(error){
-     //     }
-     //
-     // });
 }
 

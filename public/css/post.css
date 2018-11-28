@@ -39,7 +39,7 @@
 #type{
     position: absolute;
     right: 40px;
-    width: 15%;
+    width: 20%;
 }
 
 .comment_username{
@@ -71,4 +71,16 @@
     left: -87px;
     display: none;
     opacity: 0.4;
+}
+.search_box{
+    position: relative;
+    left: 656px;
+    margin: auto;
+    margin-bottom: 25px;
+}
+.search_con{
+    position: absolute;
+    right: 21px;
+    top: 10px;
+    cursor: pointer;
 }

@@ -16,9 +16,10 @@ class PostController extends Controller
         return view('home',compact('posts'));
     }
 
+    //filter posts according to user gender
     public function filter(Request $req){
         if($req->type){
-            $posts=post::join('users','posts.user_id','users.id')->where('users.gender',$req->type)->get();
+            $posts=post::join('users','posts.user_id','users.id')->where('users.gender',$req->type)->paginate(15);
             return view('home',compact('posts'));
 
         }
@@ -29,7 +30,7 @@ class PostController extends Controller
         //
     }
 
-
+// add post
     public function store(Request $req)
     {
        $this->validate($req,[
@@ -39,7 +40,7 @@ class PostController extends Controller
 
         $post=new post();
         $post->user_id=(request('user_id'));
-        $post->title=strip_tags(request('title'));
+        $post->title=strip_tags(request('title')); // use strip_tag for remove any script to prevent sql injection
         $post->body=strip_tags(request('body'));
         $post->save();
 
@@ -53,7 +54,7 @@ class PostController extends Controller
         //
     }
 
-
+//edit post
     public function edit(post $post)
     {
         return Response()->json(['post'=>$post]);
@@ -64,7 +65,7 @@ class PostController extends Controller
         return view('edit_post',compact('post'));
     }
 
-
+//update post
     public function update(Request $req , $id)
     {
         $this->validate($req,[
@@ -79,13 +80,14 @@ class PostController extends Controller
 
     }
 
+    //delete post
     public function destroy($id)
     {
         Post::find($id)->delete();
         return Response()->json(['id'=>$id]);
     }
 
-
+//add comment
     public function add_comment(Request $req,$id){
         $comment=new comment();
         $comment->post_id=$id;
@@ -94,6 +96,12 @@ class PostController extends Controller
         $comment->save();
         return Response()->json(['comment'=>$comment]);
 
+    }
+
+    //search for post
+    public function search(Request $req){
+        $posts=post::orderBy('created_at','desc')->where('title','like','%'.$req->search)->get();
+        return view('home',compact('posts'));
     }
 
 }

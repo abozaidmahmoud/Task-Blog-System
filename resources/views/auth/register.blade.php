@@ -64,7 +64,7 @@
                             <label for="national_id" class="col-md-4 col-form-label text-md-right">{{ __('national_id') }}</label>
 
                             <div class="col-md-6">
-                                <input id="national_id" type="number" class="form-control" name="national_id" value="{{old('national_id')}}" required>
+                                <input id="national_id" type="number" class="form-control{{ $errors->has('national_id') ? ' is-invalid' : '' }}" name="national_id" value="{{old('national_id')}}" required>
                                 @if ($errors->has('national_id'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('national_id') }}</strong>
@@ -77,8 +77,11 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                   تسجيل
-                                </button>
+                                   register
+                                </button> or  have an account  
+                                <a  href="{{ url('Blog/login') }}">
+                                    login
+                                </a>
                             </div>
                         </div>
                     </form>

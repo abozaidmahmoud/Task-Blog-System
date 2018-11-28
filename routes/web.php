@@ -23,6 +23,7 @@ Auth::routes();
         Route::post('user/register','UserController@store');
 
         Route::get('post/filter','PostController@filter');
+        Route::get('search','PostController@search');
         Route::get('post/{id}/show_post','PostController@show_post');
 
         Route::get('post/{gender}','PostController@filter');

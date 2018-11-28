@@ -21,7 +21,7 @@
 
         </div>
 
-            <div class="post_body">
+            <div data-id="{{$post->id}}" class="post_body postelement{{$post->id}}">
                 <span class="icon_post" onclick="show_post_option()"><i class="fa fa-cog fa-lg"></i></span>
                 <div class="post_option">
                     <a onclick="edit_post({{$post->id}})"  style="display: block;cursor: pointer"><i class="fa fa-edit"></i> edit</a>
